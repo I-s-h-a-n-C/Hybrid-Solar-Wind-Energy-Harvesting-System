@@ -2,7 +2,7 @@
 
 I built this portable generator to combine wind and solar power in a small, modular system. It uses a 3D-printed helical vertical-axis wind turbine, four solar panels, and a LiPo battery bank with USB-C output. I designed the parts in Fusion 360 and printed the rotor and enclosure separately so they could be assembled together.
 
-![Solar-panel base](images/finished-generator.jpg)
+[![Solar-panel base](images/finished-generator.jpg)](https://github.com/user-attachments/assets/3c3beb7f-d80d-4b0f-8076-8ae7ec8f4d3e)
 
 ## Parts
 
@@ -63,19 +63,7 @@ I used separate power paths for the wind turbine and solar panels. Both go throu
 
 The wind generator's voltage varies with RPM, so the converter has to be able to start at the voltage it actually produces. Check polarity and module ratings before connecting the circuit. For the LiPo battery, use a compatible charger with protection circuitry; the power-path outline above isn't a pin-by-pin wiring diagram.
 
-## 5. Final assembly
-
-This image shows the parts coming together, from the separate rotor sections to the completed turbine and base.
-
-![Assembly sequence](images/assembly-overview.jpg)
-
-1. Position the motor and mount in the middle of the enclosure.
-2. Install the solar panels and arrange the electronics inside.
-3. Route the wires so they won't be pinched when the enclosure closes.
-4. Join the enclosure sections and attach the completed rotor to the motor shaft.
-5. Check that everything is secure and the rotor turns freely before testing.
-
-## 6. Testing
+## 5. Testing
 
 I tested the wind side in different wind conditions and got approximate outputs of:
 
