@@ -1,113 +1,125 @@
-# Portable Hybrid Solar–Wind Energy Harvester
+# Portable Hybrid Solar–Wind Generator
 
-A compact renewable-energy prototype that combines four small solar panels with a modular helical vertical-axis wind turbine. Both sources feed separate voltage-conditioning branches and a shared lithium-battery power-bank section for low-voltage USB output.
+A compact 3D-printed generator that combines a helical vertical-axis wind turbine with four small solar panels, battery storage and USB output. This README covers the parts, printing, assembly and electrical checks. The repository contains the actual Fusion 360 designs and 3MF files.
 
-The project began with a practical packaging problem: how much renewable generation could fit into an enclosure small enough to carry, with a turbine that could be assembled above it when needed? The result is a 3D-printed Gorlov-style rotor and a solar-panel base designed together in Fusion 360.
+![Finished solar-panel enclosure](images/finished-generator.jpg)
 
-[Build article with photographs](https://www.instructables.com/Portable-Hybrid-Rapid-Deploy-Renewable-Generator/) · [Fusion 360 source files](F3D%20files/) · [3MF printing files](3MF%20files/) · [Mechanical design notes](docs/mechanical-design.md) · [Electrical architecture](docs/electrical-architecture.md)
+## Parts and tools
 
-![Conceptual power-flow diagram showing separate wind and solar branches, power conditioning, battery storage, and USB-C output](docs/system-overview.svg)
-
-> **Prototype status:** The enclosure and rotor have been fabricated. The design images include mechanical simulations, but the published material is not a certified structural or electrical test report. The approximate output numbers below are preliminary project notes, not a verified power curve.
-
-## The physical design
-
-The system has two main assemblies:
-
-- **Helical wind turbine:** A three-dimensional, twisted-blade vertical-axis rotor mounted above the base. Unlike a horizontal-axis turbine, a VAWT does not need a yaw mechanism to turn toward changing horizontal wind directions. A small DC motor is used as the generator.
-- **Solar base:** A split, low-profile printed enclosure with solar panels mounted into the upper faces. The base also accommodates the electronic power-handling components and supports the rotor/generator mount.
-
-The design was split into printable sections to avoid treating the entire rotor as one large object. The CAD files include separate rotor blades, top and bottom parts, a motor stand, pegs, and a combined case assembly.
-
-The earliest dimensioned sketch shows a rotor about **330 mm in diameter** and **350 mm tall**, corresponding to a projected swept area of approximately **0.115 m²**. The enclosure sketch shows **260 mm width** and **100 mm height**. These are sketch annotations; check the final models before using them as fabrication dimensions.
-
-The finished prototype is shown in the [Instructables photo walkthrough](https://www.instructables.com/Portable-Hybrid-Rapid-Deploy-Renewable-Generator/). The supplied build photographs show the printed orange turbine, a red-and-cream solar-panel enclosure, and the motor/electronics before integration.
-
-### Design progression
-
-| Stage | What was developed | Available record |
-| --- | --- | --- |
-| Sketching | Rotor proportions, swept area, central generator shaft and compact base | Dimensioned hand sketches in the build article |
-| CAD | Separate blade and support pieces, enclosure, exploded assembly views | [F3D](F3D%20files/) and [3MF](3MF%20files/) directories |
-| Structural exploration | Safety-factor and velocity visualizations of the modeled rotor | Simulation screenshots in the build documentation |
-| Prototyping | Printed helical rotor, solar-panel housing and electronics | Photographs in the [build article](https://www.instructables.com/Portable-Hybrid-Rapid-Deploy-Renewable-Generator/) |
-| Electrical integration | Separate source-conditioning branches, common storage and USB output | [Electrical documentation](docs/electrical-architecture.md) |
-
-See [Mechanical design and CAD](docs/mechanical-design.md) for the annotated dimensions, direct model links, simulation caveats and assembly overview.
-
-## How the energy system is arranged
-
-The sources have different electrical characteristics. Sunlight varies with shading and orientation, while turbine voltage and available current change with wind speed and generator loading. The design therefore uses a separate conditioning stage for each branch before the two are combined.
-
-The original electrical diagram shows the following path:
-
-1. **Solar branch:** Four small modules, described in the project notes as approximately 5 V / 200 mA each, feed a voltage-conversion board.
-2. **Wind branch:** The motor/generator connected to the helical rotor feeds its own voltage-conversion board.
-3. **Isolation:** Schottky diodes at the outputs are intended to limit reverse current from the combined line into either branch.
-4. **Storage:** The conditioned source input goes to a lithium battery / power-bank module.
-5. **Output:** The power-bank electronics supply a USB-C connector for low-voltage devices.
-
-The source drawing marks both converter outputs at **5 V**. This is a nominal design target. In particular, the wind-side converter must be checked for operation at the generator's potentially low and variable input voltage. The conceptual block diagram is not a tested pin-level schematic; charger and battery compatibility need independent verification.
-
-For the drawing's assumptions and the limitations of the proposed power path, read [Electrical architecture](docs/electrical-architecture.md).
-
-## Preliminary electrical performance
-
-Earlier project notes give the following approximate figures for the **wind-generation side**:
-
-| Wind condition | Approximate reported electrical output |
-| --- | ---: |
-| Low wind | 0.05 W |
-| Moderate wind | 2.5–3 W |
-| Stronger wind | 3–4 W |
-
-These figures are useful as context for the initial prototype, but the available records do not identify exact wind speeds, loads, sensor placement or repeat measurements. They should not be interpreted as a standardized turbine performance curve.
-
-For the four nominally 5 V / 200 mA solar modules, the arithmetic sum of nameplate panel ratings is about **4 W**. That figure is not an independently measured solar output or an additional guaranteed 4 W at the USB port. Converter losses, diode drops, orientation and battery charging behavior all affect usable power.
-
-A reproducible comparison would measure the wind and solar branches individually and at the combined input, under documented conditions. See [Testing notes and limitations](docs/testing-and-limitations.md) for a measurement table and what remains unverified.
-
-## Design files
-
-The repository contains actual editable and printable design files, not only images of the finished prototype.
-
-**3MF files**
-
-- [Complete rotor + case](3MF%20files/gorlov%2Bcase.3mf)
-- [Rotor base](3MF%20files/gorlovBase.3mf)
-- [Helical blades](3MF%20files/gorlovBlades.3mf)
-- [Rotor top](3MF%20files/gorlovTop.3mf)
-- [Motor stand](3MF%20files/motorstand.3mf)
-- [Peg](3MF%20files/peg.3mf)
-
-**Fusion 360 source files**
-
-- [Complete rotor + case](F3D%20files/gorlov%2Bcase.f3d)
-- [Rotor base](F3D%20files/gorlovBase.f3d)
-- [Rotor top](F3D%20files/gorlovTop.f3d)
-- [Motor stand](F3D%20files/motorstand.f3d)
-- [Peg](F3D%20files/peg.f3d)
-
-The blade-only 3MF is present, but a blade-only F3D file is not currently included in this repository. Open the 3MF files in a compatible slicer and the F3D files in Autodesk Fusion. Verify units and fit before printing.
-
-## Build and deployment considerations
-
-The separate rotor sections are intended to make printing, transport and assembly more manageable. The enclosure provides a common platform for the solar panels and wind generator. Rotor balance and bearing friction can matter considerably at this scale, especially during startup. A rotor spinning freely by hand does not establish that a connected converter can draw useful power in light wind.
-
-The design also has practical limits. The printed structure may need weather-resistant material and protection from long-term UV exposure. The spinning turbine needs a secure mount, physical clearance and suitable safeguards; it should not be relied upon in severe weather. The onboard lithium cell and power conversion require a compatible protection and charging system. This remains an educational prototype, not a storm-rated emergency generator.
-
-## Project documentation
-
-| Document | Contents |
+| Part | Purpose |
 | --- | --- |
-| [Mechanical design and CAD](docs/mechanical-design.md) | Rotor geometry, sketch dimensions, printed components and simulation context |
-| [Electrical architecture](docs/electrical-architecture.md) | Solar/wind power flow, converters, isolation, battery storage and unresolved electrical checks |
-| [Performance and testing](docs/testing-and-limitations.md) | Preliminary figures, measurement conventions, limitations and a suggested data log |
-| [Conceptual system diagram](docs/system-overview.svg) | A readable overview of the two input branches and shared storage/output |
-| [Instructables guide](https://www.instructables.com/Portable-Hybrid-Rapid-Deploy-Renewable-Generator/) | Photographs and step-by-step build narrative |
+| 3D-printed helical rotor: blades, top, base and pegs | Wind-energy capture |
+| Printed motor stand and solar-panel case | Support and enclosure |
+| Small DC motor | Used as the wind generator |
+| Four small solar modules, approximately 5 V / 200 mA each in the prototype | Solar input |
+| Two suitable DC-DC converter modules | Separate wind and solar conditioning |
+| Schottky diodes | Isolate the two source branches |
+| Compatible protected LiPo cell and charger / power-bank module | Energy storage and USB output |
+| Wiring, connectors, fasteners | Assembly |
+| 3D printer, soldering supplies and multimeter | Fabrication and basic checks |
 
-## Author
+The photos show the parts from this particular build. Exact electronics model numbers and pin assignments are not fully established in the documentation; check the specifications of the modules you actually use.
 
-Designed and built by [Ishan Chakrabarti](https://github.com/I-s-h-a-n-C). The associated [Instructables project](https://www.instructables.com/Portable-Hybrid-Rapid-Deploy-Renewable-Generator/) contains the longer original build account.
+![Components laid out before assembly](images/components-before-assembly.jpg)
 
-This repository documents the small-scale hybrid generator and its CAD files. The reported wind output is preliminary, and the electrical architecture is described at the functional level until a verified schematic and controlled performance dataset are available.
+## 1. Print the components
+
+The repository includes printable 3MF files and editable Fusion 360 designs:
+
+| Component | 3MF | Fusion 360 |
+| --- | --- | --- |
+| Complete turbine and case | [3MF](3MF%20files/gorlov%2Bcase.3mf) | [F3D](F3D%20files/gorlov%2Bcase.f3d) |
+| Rotor base | [3MF](3MF%20files/gorlovBase.3mf) | [F3D](F3D%20files/gorlovBase.f3d) |
+| Helical blades | [3MF](3MF%20files/gorlovBlades.3mf) | No separate blade F3D provided |
+| Rotor top | [3MF](3MF%20files/gorlovTop.3mf) | [F3D](F3D%20files/gorlovTop.f3d) |
+| Motor stand | [3MF](3MF%20files/motorstand.3mf) | [F3D](F3D%20files/motorstand.f3d) |
+| Peg | [3MF](3MF%20files/peg.3mf) | [F3D](F3D%20files/peg.f3d) |
+
+Check scale, dimensions, tolerances and printer settings in your slicer. An early sketch shows the rotor at roughly 330 mm in diameter and 350 mm high; verify dimensions in the final CAD. Print the assembly pieces separately when appropriate for the available bed size.
+
+## 2. Assemble the helical rotor
+
+The turbine uses curved blade sections joined to top and bottom supports. The exploded view shows how the components fit around the central axis.
+
+![Exploded CAD view showing the rotor parts and shaft](images/rotor-exploded.jpg)
+
+1. Lay out the printed blades, top, bottom and connecting pieces.
+2. Test-fit the matching blade ends and locating features before securing the parts.
+3. Align the helical blades between the top and bottom supports as shown in the CAD.
+4. Check that the completed rotor is centered and that the blade edges are clear of the frame.
+5. Gently rotate the unpowered assembly by hand to check for rubbing, wobble or a poor fit.
+
+![Finished printed helical rotor](images/printed-rotor.jpg)
+
+## 3. Install the motor / generator
+
+The DC motor is used as a generator when its shaft is driven by the turbine. Fit it into the printed motor stand and align the shaft with the center of the rotor. Make sure the mount is secure and the rotating assembly has enough clearance.
+
+A small rotor has limited starting torque. Shaft friction, poor balance and an excessive electrical load may prevent it from starting even when wind is present.
+
+## 4. Prepare the solar-panel enclosure
+
+The base consists of two solar-panel housing sections and separate end pieces. The exploded enclosure view shows the center-mounted motor in relation to the case.
+
+![Exploded CAD view of the solar-panel housing, motor and end pieces](images/enclosure-exploded.jpg)
+
+1. Print and test-fit the case components.
+2. Check the solar-panel openings against the actual modules.
+3. Place the panels in the sloping upper faces, with their active surfaces exposed.
+4. Plan space for the low-voltage electronics and wiring inside the enclosure.
+5. Keep wires clear of the motor shaft and any enclosure joint or pinch point.
+
+The finished prototype photograph at the top shows the two panel-bearing sections joined at the center.
+
+## 5. Arrange the power electronics
+
+The prototype's electrical concept uses separate conditioning paths for the solar panels and wind generator, followed by a shared low-voltage input to a battery / power-bank module:
+
+- **Solar branch:** Solar modules → DC-DC converter → Schottky isolation diode.
+- **Wind branch:** Motor generator → its own DC-DC converter → Schottky isolation diode.
+- **Output section:** The two conditioned branches feed a compatible charger / power-bank input, with USB output supplied by that module.
+
+The original drawing labels the converted outputs at approximately 5 V. These are intended values, not proof that the modules regulate at every available input condition. In particular, some converters cannot start at the low voltage generated by the wind motor.
+
+**Battery and charging safety:** The project drawing is a concept, not an independently verified pin-level LiPo wiring plan. Use only compatible charging and protection hardware, and have a knowledgeable adult or electronics supervisor check the design and ratings before connecting or charging a lithium cell. Do not bypass protection circuitry.
+
+For preliminary source checks, keep the storage electronics disconnected and have the source polarity, converter limits and output behavior checked with a multimeter and suitable test conditions.
+
+## 6. Put everything together
+
+This original project image collects the separated rotor sections, assembled turbine, enclosure pieces and final form.
+
+![Original assembly sequence and exploded views](images/assembly-overview.jpg)
+
+1. Verify the printed rotor joints and central motor mount.
+2. Fit the solar panels and route the low-voltage wiring inside the case.
+3. Position the power-handling modules where they will not touch the moving shaft or be crushed by the enclosure.
+4. Check mechanical alignment and the electrical modules' compatibility before closing the enclosure.
+5. Close and secure the base sections.
+6. Attach the rotor above the base and verify that it turns freely by hand with the system unpowered.
+
+The turbine and solar base are separate assemblies that come together at the motor shaft and mount.
+
+## 7. Check the finished system
+
+Before any outdoor use, check that the assembly is stable, the blades cannot strike the housing, and the solar panels are unobstructed. Do not operate an unsecured spinning rotor or a prototype battery charger unattended. The prototype is not rated for storms or other severe conditions.
+
+To compare performance, measure voltage and current **under a known load**, as well as wind speed and lighting conditions. The earlier project notes report approximate wind-side figures of **0.05 W** in low wind, **2.5–3 W** in moderate wind and **3–4 W** in stronger wind. These were informal observations, not a calibrated power curve or a guaranteed USB output.
+
+## Troubleshooting
+
+| Symptom | Check |
+| --- | --- |
+| Rotor does not turn | Shaft friction, blade clearance, rotor alignment and generator load |
+| Rotor wobbles | Printed joints, motor mount, shaft alignment |
+| Wind converter does not start | Startup-voltage threshold and generator behavior under load |
+| Solar output is low | Orientation, shading, panel connections and converter losses |
+| USB output is inconsistent | Storage module specifications, protected battery state and available source power |
+
+## Project files
+
+- [3MF print files](3MF%20files/)
+- [Fusion 360 project files](F3D%20files/)
+- [Assembly photos and CAD screenshots](images/)
+
+The images in this README are the author's own project photos and CAD screenshots. The documented build is an experimental small-scale prototype; component compatibility and printing tolerances need to be checked for any reproduction.
