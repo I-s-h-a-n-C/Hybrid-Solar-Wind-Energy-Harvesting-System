@@ -57,6 +57,10 @@ Fit the solar panels into the angled openings on top. Leave enough space inside 
 
 I used separate power paths for the wind turbine and solar panels. Both go through their own voltage converter and a Schottky diode before feeding the battery-bank electronics.
 
+![Wiring diagram for the solar panels, wind turbine, two converters, Schottky diodes, and battery bank](images/wiring-diagram.jpg)
+
+In my diagram, the solar panels supply around 4.5–5.5 V and the wind generator around 2–3 V before their respective converters. I used the diodes to keep current from flowing back into the other source.
+
 - **Solar:** Solar panels → 5 V converter → Schottky diode
 - **Wind:** DC generator → 5 V converter → Schottky diode
 - **Storage/output:** Combined input → charging/power-bank board → USB-C
